@@ -27,7 +27,10 @@ jobs:
         shell: cmd
       - name: Compile code
         run: rebar3 compile
-      - name: Run YAML tests
-        run: cd _build/default/lib/fast_yaml; rebar3 eunit
-      - name: Run TLS tests
-        run: cd _build/default/lib/fast_tls; rebar3 eunit
+      - name: Remove LIB and EXP files
+        run: find _build '(' -iname '*.lib' -o -iname '*.exp' ')' -delete
+        shell: bash
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          path: _build/default/lib/fast_*
