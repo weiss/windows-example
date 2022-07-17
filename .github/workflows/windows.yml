@@ -1,0 +1,33 @@
+name: Windows
+
+on: push
+
+jobs:
+  build:
+    name: Build on Windows
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Set up MSVC environment
+        uses: ilammy/msvc-dev-cmd@v1
+      - name: Download Erlang/OTP and Rebar
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: '25.x'
+          rebar3-version: '3.x'
+      - name: Install LibYAML
+        run: vcpkg install libyaml:x64-windows-static-md
+      - name: Install OpenSSL
+        run: vcpkg install openssl:x64-windows-static-md
+      - name: Set compiler and linker flags
+        run: |
+          echo CFLAGS=/I"%VCPKG_INSTALLATION_ROOT%\installed\x64-windows-static-md\include" /MD >> %GITHUB_ENV%
+          echo LDFLAGS=/LIBPATH:"%VCPKG_INSTALLATION_ROOT%\installed\x64-windows-static-md\lib" >> %GITHUB_ENV%
+        shell: cmd
+      - name: Compile code
+        run: rebar3 compile
+      - name: Run YAML tests
+        run: cd _build/default/lib/fast_yaml; rebar3 eunit
+      - name: Run TLS tests
+        run: cd _build/default/lib/fast_tls; rebar3 eunit

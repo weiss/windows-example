@@ -1,0 +1,16 @@
+{"1.2.0",
+[{<<"fast_tls">>,
+  {git,"https://github.com/weiss/fast_tls.git",
+       {ref,"028cff39c690f64fbffc8c3a63818e54de95fdd2"}},
+  0},
+ {<<"fast_yaml">>,
+  {git,"https://github.com/weiss/fast_yaml.git",
+       {ref,"387bc40aad891f4651c4a1635ca5c761306ec4e3"}},
+  0},
+ {<<"p1_utils">>,{pkg,<<"p1_utils">>,<<"1.0.25">>},1}]}.
+[
+{pkg_hash,[
+ {<<"p1_utils">>, <<"2D39B5015A567BBD2CC7033EEB93A7C60D8C84EFE1EF69A3473FAA07FA268187">>}]},
+{pkg_hash_ext,[
+ {<<"p1_utils">>, <<"9219214428F2C6E5D3187FF8EB9A8783695C2427420BE9A259840E07ADA32847">>}]}
+].
